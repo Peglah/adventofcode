@@ -1,49 +1,16 @@
-f = open("/storage/emulated/0/Download/input.txt", "r")
-h0 = 0
-h1 = 0
-h2 = 0
-tmp = 0
+with open('input.txt', 'r') as file:
+  input = file.readlines() # Store values in list
 
-# h0
-for x in f:
-  if x == "\n":
-    if tmp > h0:
-      h0 = tmp
-    tmp = 0
+calories = [] # List
+elf = 0
+
+for line in input:
+  if line == '\n':
+    calories.append(int(elf))
+    elf = 0
   else:
-    tmp = tmp + int(x)
-if tmp > h0:
-  h0 = tmp
-tmp = 0
-f.seek(0)
+    elf += int(line)
+calories.sort()
 
-# h1
-for x in f:
-  if x == "\n":
-    if tmp > h1 and tmp != h0:
-      h1 = tmp
-    tmp = 0
-  else:
-    tmp = tmp + int(x)
-if tmp > h1 and tmp != h0:
-  h1 = tmp
-tmp = 0
-f.seek(0)
-
-# h2
-for x in f:
-  if x == "\n":
-    if tmp > h2 and tmp != h1 and tmp != h0:
-      h2 = tmp
-    tmp = 0
-  else:
-    tmp = tmp + int(x)
-if tmp > h2 and tmp != h1 and tmp != h0:
-  h2 = tmp
-tmp = 0
-
-f.close()
-print("H0: ", h0)
-print("H1: ", h1)
-print("H2: ", h2)
-print("Sum: ", h0+h1+h2)
+print(max(calories)) # Answer 1
+print(sum(calories[-3:])) # Answer 2
